@@ -1,0 +1,116 @@
+[gd_scene load_steps=21 format=3 uid="uid://68bagv11tql3"]
+
+[ext_resource type="Script" path="res://scene/player/player.gd" id="1_t3kj4"]
+[ext_resource type="PackedScene" uid="uid://dy4rf3d118gxj" path="res://scene/abilities/atack_ability/attack_controller.tscn" id="2_2cf3r"]
+[ext_resource type="Texture2D" uid="uid://35rqbketyhvj" path="res://scene/player/sprite__die_0.png" id="2_b6r7b"]
+[ext_resource type="Texture2D" uid="uid://ccdci7v7ugmnw" path="res://scene/player/sprite__die_1.png" id="3_sla7m"]
+[ext_resource type="Texture2D" uid="uid://cnq3yoo3hlasd" path="res://scene/player/sprite__die_2.png" id="4_tysbs"]
+[ext_resource type="Texture2D" uid="uid://da43gmp3h1chy" path="res://scene/player/sprite__die_3.png" id="5_bf1ab"]
+[ext_resource type="Texture2D" uid="uid://b8o42weqo27kp" path="res://scene/player/sprite__hurt_0.png" id="6_thn43"]
+[ext_resource type="Texture2D" uid="uid://cw7daeolv2s18" path="res://scene/player/sprite__hurt_1.png" id="7_64lmg"]
+[ext_resource type="Texture2D" uid="uid://de6tydrdt4usp" path="res://scene/player/sprite__hurt_2.png" id="8_jpcih"]
+[ext_resource type="Texture2D" uid="uid://df653no82v1nv" path="res://scene/player/sprite__hurt_3.png" id="9_35ttw"]
+[ext_resource type="Texture2D" uid="uid://qy48pr58y4mt" path="res://scene/player/sprite__idle_0.png" id="10_lhdpc"]
+[ext_resource type="Texture2D" uid="uid://uh8q0lmy3eh2" path="res://scene/player/sprite__idle_1.png" id="11_vcarb"]
+[ext_resource type="Texture2D" uid="uid://cqvw7cb1hbm8i" path="res://scene/player/sprite__idle_2.png" id="12_mhitw"]
+[ext_resource type="Texture2D" uid="uid://wjyk50xwyn8y" path="res://scene/player/sprite__idle_3.png" id="13_ybobr"]
+[ext_resource type="Texture2D" uid="uid://c264hhxheyg3d" path="res://scene/player/sprite__run_0.png" id="14_xhry3"]
+[ext_resource type="Texture2D" uid="uid://d20yoc3x07u0a" path="res://scene/player/sprite__run_1.png" id="15_tgfoo"]
+[ext_resource type="Texture2D" uid="uid://cwkla0gkrepoq" path="res://scene/player/sprite__run_2.png" id="16_4endi"]
+[ext_resource type="Texture2D" uid="uid://ci0iglwsehfts" path="res://scene/player/sprite__run_3.png" id="17_yod83"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_87rwj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_b6r7b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_sla7m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tysbs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bf1ab")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_thn43")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_64lmg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jpcih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_35ttw")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_lhdpc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_vcarb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_mhitw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ybobr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_xhry3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_tgfoo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_4endi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_yod83")
+}],
+"loop": true,
+"name": &"run",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6yn2w"]
+radius = 5.0
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 0
+script = ExtResource("1_t3kj4")
+
+[node name="AbilityManager" type="Node" parent="."]
+
+[node name="AttackController" parent="AbilityManager" instance=ExtResource("2_2cf3r")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_87rwj")
+animation = &"die"
+autoplay = "idle"
+frame = 3
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_6yn2w")
+
+[node name="Camera2D" type="Camera2D" parent="."]
