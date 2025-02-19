@@ -1,10 +1,19 @@
-[gd_scene load_steps=4 format=4 uid="uid://c2oejftkyjuky"]
+[gd_scene load_steps=6 format=4 uid="uid://c2oejftkyjuky"]
 
-[ext_resource type="TileSet" uid="uid://dp5hiybfd5lmn" path="res://scene/resources/world.tres" id="1_ri5n4"]
+[ext_resource type="PackedScene" uid="uid://cwmeuk1e24t3g" path="res://scene/spawner/enemy_spawner.tscn" id="1_kffpf"]
+[ext_resource type="TileSet" uid="uid://dp5hiybfd5lmn" path="res://resources/world.tres" id="1_ri5n4"]
+[ext_resource type="PackedScene" uid="uid://x5sn4okwm8sa" path="res://scene/ui/arena_time_ui.tscn" id="1_tla3n"]
 [ext_resource type="PackedScene" uid="uid://68bagv11tql3" path="res://scene/player/player.tscn" id="2_j1rj3"]
-[ext_resource type="PackedScene" uid="uid://84vsrss1klyn" path="res://scene/devil/devil.tscn" id="3_hsc85"]
+[ext_resource type="PackedScene" uid="uid://1o0rliqc00fs" path="res://scene/manager/arena_time_manager.tscn" id="2_k65b2"]
 
 [node name="Level" type="Node"]
+
+[node name="ArenaTimeUI" parent="." node_paths=PackedStringArray("arena_time_manager") instance=ExtResource("1_tla3n")]
+arena_time_manager = NodePath("../ArenaTimeManager")
+
+[node name="ArenaTimeManager" parent="." instance=ExtResource("2_k65b2")]
+
+[node name="EnemySpawner" parent="." instance=ExtResource("1_kffpf")]
 
 [node name="Layer0" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -14,9 +23,3 @@ tile_set = ExtResource("1_ri5n4")
 
 [node name="Player" parent="." instance=ExtResource("2_j1rj3")]
 position = Vector2(320, 181)
-
-[node name="Devil" parent="." instance=ExtResource("3_hsc85")]
-position = Vector2(186, 169)
-
-[node name="Devil2" parent="." instance=ExtResource("3_hsc85")]
-position = Vector2(262, 253)
